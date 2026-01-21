@@ -1,4 +1,4 @@
-package com.taskflow.entity
+package com.taskflow.entity;
 
 public enum Status {
     PENDING, IN_PROGRESS, COMPLETED;
