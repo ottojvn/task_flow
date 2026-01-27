@@ -2,6 +2,8 @@ package com.taskflow.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.taskflow.entity.Status;
 import com.taskflow.entity.Task;
+import com.taskflow.exception.InvalidStatusException;
 import com.taskflow.exception.TaskNotFoundException;
 import com.taskflow.repository.TaskRepository;
 
@@ -20,6 +23,8 @@ import jakarta.validation.Valid;
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -35,8 +40,11 @@ public class TaskService {
     }
 
     public Task create(@Valid Task task) {
+        logger.info("Creating task: {}", task.getTitle());
         task.setId(null);
-        return taskRepository.save(task);
+        Task saved = taskRepository.save(task);
+        logger.info("Task created with ID: {}", saved.getId());
+        return saved;
     }
 
     public Task update(Long id, @Valid Task task) {
@@ -54,6 +62,7 @@ public class TaskService {
     }
 
     public Page<Task> filterByStatus(Status status, Pageable pageable) {
-        return taskRepository.findByStatus(status, pageable);
+        return taskRepository.findByStatus(status, pageable)
+                .orElseThrow(() -> new InvalidStatusException(status));
     }
 }

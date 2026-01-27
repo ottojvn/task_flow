@@ -56,4 +56,4 @@ logging:
             taskflow: DEBUG
         org:
             springframework:
-                webmvc: DEBUG
+                webmvc: WARN
