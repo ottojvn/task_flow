@@ -3742,13 +3742,3 @@ Você tem uma semana sólida de trabalho pela frente. Foco em arquitetura, teste
 Resultado: MVP que diferencia você de 70% dos candidatos.
 
 **Domingo à noite, você terá 1 projeto full-stack pronto para entrevista.**
-
-💪 Vamo lá!
-<span style="display:none">[^1][^2]</span>
-
-<div align="center">⁂</div>
-
-[^1]: project_spec_checklist.md
-
-[^2]: project_spec_checklist.md
-
